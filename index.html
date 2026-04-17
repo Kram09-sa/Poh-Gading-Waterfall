@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poh Gading Waterfall — Bali's Hidden Paradise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Playfair Display for headings, DM Sans for body -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ==============================
+       NAVBAR
+  ============================== -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="logo">
+        <span class="logo-leaf">🌿</span>
+        <span class="logo-text">Poh <strong>Gading</strong></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#gallery">Galeri</a></li>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#pricing">Harga</a></li>
+        <li><a href="#reservation">Reservasi</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+      <button class="nav-cta" onclick="scrollToReservation()">Pesan Tiket</button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==============================
+       HERO SECTION
+  ============================== -->
+  <section id="home" class="hero">
+    <!-- Overlay layered over image -->
+    <div class="hero-bg">
+      <img src="foto/WhatsApp Image 2026-04-17 at 14.03.47.jpeg" alt="Poh Gading Waterfall" class="hero-img" />
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-content fade-in">
+      <span class="hero-badge">✦ Wisata Alam Bali</span>
+      <h1 class="hero-title">
+        Poh Gading<br />
+        <em>Waterfall</em>
+      </h1>
+      <p class="hero-subtitle">
+        Temukan keajaiban tersembunyi di jantung Bali — 
+        air terjun bertingkat yang memukau, dikelilingi hutan tropis yang asri.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToReservation()">
+          Pesan Tiket Sekarang
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <a href="#about" class="btn-ghost">Pelajari Lebih Lanjut</a>
+      </div>
+      <!-- Quick stats -->
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">4.9</span>
+          <span class="stat-label">★ Rating</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">12K+</span>
+          <span class="stat-label">Pengunjung</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">Rp20K</span>
+          <span class="stat-label">Mulai Dari</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ==============================
+       GALLERY SECTION
+  ============================== -->
+  <section id="gallery" class="gallery-section reveal">
+    <div class="section-header">
+      <span class="section-tag">Galeri Foto</span>
+      <h2 class="section-title">Keindahan yang<br /><em>Menakjubkan</em></h2>
+      <p class="section-desc">Setiap sudut Poh Gading Waterfall menyimpan keajaiban alam yang menunggu untuk Anda jelajahi.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- Large featured card -->
+      <div class="gallery-card featured reveal">
+        <img src="foto/WhatsApp Image 2026-04-17 at 14.03.44.jpeg" alt="Air terjun dengan patung" loading="lazy" />
+        <div class="gallery-overlay">
+          <span>Air Terjun Utama</span>
+        </div>
+      </div>
+      <!-- Regular cards -->
+      <div class="gallery-card reveal" style="--delay: 0.1s">
+        <img src="foto/WhatsApp Image 2026-04-17 at 14.03.45 (1).jpeg" alt="Papan Poh Gading Waterfall" loading="lazy" />
+        <div class="gallery-overlay">
+          <span>Gerbang Masuk</span>
+        </div>
+      </div>
+      <div class="gallery-card reveal" style="--delay: 0.2s">
+        <img src="foto/WhatsApp Image 2026-04-17 at 14.03.44.jpeg" alt="Jembatan bambu" loading="lazy" />
+        <div class="gallery-overlay">
+          <span>Jembatan Bambu</span>
+        </div>
+      </div>
+      <div class="gallery-card reveal" style="--delay: 0.3s">
+        <img src="foto/WhatsApp Image 2026-04-17 at 14.03.46.jpeg" alt="View keseluruhan area" loading="lazy" />
+        <div class="gallery-overlay">
+          <span>Panorama Area</span>
+        </div>
+      </div>
+      <div class="gallery-card wide reveal" style="--delay: 0.15s">
+        <img src="foto/WhatsApp Image 2026-04-17 at 14.03.44 (1).jpeg" alt="Air terjun bertingkat" loading="lazy" />
+        <div class="gallery-overlay">
+          <span>Air Terjun Bertingkat</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       ABOUT SECTION
+  ============================== -->
+  <section id="about" class="about-section">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal">
+        <img src="foto/WhatsApp Image 2026-04-17 at 14.03.45 (2).jpeg" alt="Poh Gading Waterfall view" class="about-img" />
+        <div class="about-badge-card">
+          <span class="badge-icon">🏅</span>
+          <div>
+            <strong>Best Waterfall 2026</strong>
+            <p>Bali Tourism Award</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal" style="--delay: 0.2s">
+        <span class="section-tag">Tentang Kami</span>
+        <h2 class="section-title">Surga Tersembunyi<br />di <em>Bali</em></h2>
+        <p>
+          Poh Gading Waterfall adalah destinasi wisata alam yang terletak di kawasan hutan tropis Bali. 
+          Air terjun ini terkenal dengan keindahan alaminya yang masih sangat terjaga, 
+          menghadirkan pemandangan yang memukau dengan air jernih yang mengalir dari ketinggian.
+        </p>
+        <p>
+          Dikelilingi oleh pepohonan hijau yang rimbun dan suara alam yang menenangkan, 
+          tempat ini adalah pelarian sempurna dari hiruk pikuk kota. 
+          Nikmati kesegaran alam Bali yang autentik bersama keluarga dan orang-orang terkasih.
+        </p>
+        <div class="about-features">
+          <div class="feature-item">
+            <span class="feature-icon">🌊</span>
+            <div>
+              <strong>Air Terjun Bertingkat</strong>
+              <p>Keindahan berlapis yang memukau</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🌳</span>
+            <div>
+              <strong>Hutan Tropis Asri</strong>
+              <p>Udara segar & pemandangan hijau</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🛤️</span>
+            <div>
+              <strong>Jembatan Bambu</strong>
+              <p>Jalur unik nan instagramable</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🅿️</span>
+            <div>
+              <strong>Parkir & Fasilitas</strong>
+              <p>Area parkir luas & toilet bersih</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       PRICING SECTION
+  ============================== -->
+  <section id="pricing" class="pricing-section reveal">
+    <div class="section-header">
+      <span class="section-tag">Harga Tiket</span>
+      <h2 class="section-title">Pilih Paket<br /><em>Terbaik Anda</em></h2>
+    </div>
+    <div class="pricing-cards">
+      <!-- Regular -->
+      <div class="price-card reveal">
+        <div class="price-card-header">
+          <span class="price-icon">🌿</span>
+          <h3>Regular</h3>
+          <p>Nikmati keindahan alam</p>
+        </div>
+        <div class="price-amount">
+          <span class="currency">Rp</span>
+          <span class="amount">20.000</span>
+          <span class="per">/orang</span>
+        </div>
+        <ul class="price-features">
+          <li>✓ Akses area utama air terjun</li>
+          <li>✓ Pemandu lokal</li>
+          <li>✓ Parkir gratis</li>
+          <li>✓ Toilet & fasilitas dasar</li>
+          <li class="disabled">✗ Foto profesional</li>
+          <li class="disabled">✗ Sewa perlengkapan</li>
+        </ul>
+        <button class="price-btn" onclick="selectPackage('Regular')">Pilih Paket Ini</button>
+      </div>
+      <!-- VIP -->
+      <div class="price-card featured-card reveal" style="--delay: 0.15s">
+        <div class="popular-badge">⭐ Terpopuler</div>
+        <div class="price-card-header">
+          <span class="price-icon">👑</span>
+          <h3>Mancanegara</h3>
+          <p>Pengalaman premium</p>
+        </div>
+        <div class="price-amount">
+          <span class="currency">Rp</span>
+          <span class="amount">30.000</span>
+          <span class="per">/orang</span>
+        </div>
+        <ul class="price-features">
+          <li>✓ Semua fitur Regular</li>
+          <li>✓ Foto profesional (10 foto)</li>
+          <li>✓ Sewa perlengkapan air</li>
+          <li>✓ Pemandu eksklusif</li>
+          <li>✓ Akses area VIP</li>
+          <li>✓ Minuman selamat datang</li>
+        </ul>
+        <button class="price-btn vip-btn" onclick="selectPackage('VIP')">Pilih Paket Ini</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       RESERVATION SECTION
+  ============================== -->
+  <section id="reservation" class="reservation-section">
+    <div class="reservation-inner">
+      <div class="reservation-info reveal">
+        <span class="section-tag">Reservasi Tiket</span>
+        <h2 class="section-title">Rencanakan<br /><em>Petualangan</em> Anda</h2>
+        <p>Pesan tiket Anda sekarang dan pastikan pengalaman terbaik di Poh Gading Waterfall. Konfirmasi akan dikirim melalui email.</p>
+        <div class="info-items">
+          <div class="info-item">
+            <span>🕗</span>
+            <div>
+              <strong>Jam Operasional</strong>
+              <p>07.00 – 18.00 WITA (setiap hari)</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span>📍</span>
+            <div>
+              <strong>Lokasi</strong>
+              <p>Desa Medahan, Blahbatuh, Bali</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span>📞</span>
+            <div>
+              <strong>Hotline</strong>
+              <p>+62 812-3456-7890</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reservation Form -->
+      <div class="reservation-form-wrap reveal" style="--delay: 0.2s">
+        <form id="reservationForm" class="res-form" novalidate>
+          <div class="form-group">
+            <label for="fullName">Nama Lengkap <span class="req">*</span></label>
+            <input type="text" id="fullName" placeholder="Masukkan nama lengkap Anda" required />
+            <span class="error-msg" id="err-name"></span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email <span class="req">*</span></label>
+              <input type="email" id="email" placeholder="email@domain.com" required />
+              <span class="error-msg" id="err-email"></span>
+            </div>
+            <div class="form-group">
+              <label for="phone">Nomor HP <span class="req">*</span></label>
+              <input type="tel" id="phone" placeholder="08xxxxxxxxxx" required />
+              <span class="error-msg" id="err-phone"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="visitDate">Tanggal Kunjungan <span class="req">*</span></label>
+              <input type="date" id="visitDate" required />
+              <span class="error-msg" id="err-date"></span>
+            </div>
+            <div class="form-group">
+              <label for="tickets">Jumlah Tiket <span class="req">*</span></label>
+              <input type="number" id="tickets" min="1" max="50" placeholder="1" required />
+              <span class="error-msg" id="err-tickets"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Pilihan Paket <span class="req">*</span></label>
+            <div class="package-toggle">
+              <label class="pkg-option">
+                <input type="radio" name="package" value="Regular" id="pkgRegular" />
+                <span class="pkg-label">
+                  <span class="pkg-name">🌿 Regular</span>
+                  <span class="pkg-price">Rp 20.000/orang</span>
+                </span>
+              </label>
+              <label class="pkg-option">
+                <input type="radio" name="package" value="VIP" id="pkgVIP" />
+                <span class="pkg-label">
+                  <span class="pkg-name">👑 Mancanegara</span>
+                  <span class="pkg-price">Rp 30.000/orang</span>
+                </span>
+              </label>
+            </div>
+            <span class="error-msg" id="err-package"></span>
+          </div>
+          <!-- Price Summary -->
+          <div class="price-summary" id="priceSummary" style="display:none;">
+            <span class="summary-label">Total Pembayaran:</span>
+            <span class="summary-price" id="totalPrice">Rp 0</span>
+          </div>
+          <div class="form-group">
+            <label for="notes">Catatan (opsional)</label>
+            <textarea id="notes" rows="3" placeholder="Permintaan khusus atau catatan tambahan..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <span>Pesan Sekarang</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       TESTIMONIAL SECTION
+  ============================== -->
+  <section id="testimonials" class="testimonial-section reveal">
+    <div class="section-header">
+      <span class="section-tag">Testimoni</span>
+      <h2 class="section-title">Kata Mereka yang<br /><em>Sudah Berkunjung</em></h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Air terjunnya sangat indah dan masih alami! Jembatan bambunya juga seru banget buat foto-foto. Pasti balik lagi!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">DW</div>
+          <div>
+            <strong>Dewi Wulandari</strong>
+            <span>Jakarta • Mei 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card highlight reveal" style="--delay:0.1s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Tempat yang luar biasa! Airnya jernih banget dan hawanya sejuk. Paket VIP-nya worth it banget, fotografernya profesional!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RH</div>
+          <div>
+            <strong>Rizky Hendra</strong>
+            <span>Surabaya • April 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="--delay:0.2s">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Hidden gem Bali yang wajib dikunjungi! Lokasi tidak terlalu ramai, pemandu lokal sangat ramah dan informatif."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SA</div>
+          <div>
+            <strong>Siti Aisyah</strong>
+            <span>Bandung • Maret 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       CONTACT / MAPS SECTION
+  ============================== -->
+  <section id="contact" class="contact-section reveal">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <span class="section-tag">Kontak & Lokasi</span>
+        <h2 class="section-title">Temukan<br /><em>Kami</em></h2>
+        <p>Jangan ragu untuk menghubungi kami. Tim kami siap membantu Anda merencanakan kunjungan yang sempurna.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <strong>Alamat</strong>
+              <p>Kemenuh, Kecamatan Sukawati, Gianyar, Bali</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <strong>Telepon / WhatsApp</strong>
+              <p>+62 877 5106 1534</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <strong>Email</strong>
+              <p>info@pohgadingwaterfall.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕗</div>
+            <div>
+              <strong>Jam Buka</strong>
+              <p>Senin – Minggu: 07.00 – 18.00 WITA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Google Maps embed placeholder -->
+      <div class="map-wrap reveal" style="--delay:0.2s">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.4249671206276!2d115.28741317456647!3d-8.555069786748756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2170064a51c7b%3A0xe8c95632b0f67e76!2sPoh%20Gading%20Waterfall!5e0!3m2!1sid!2sid!4v1776409150711!5m2!1sid!2sid"
+          width="100%"
+          height="100%"
+          style="border:0;border-radius:16px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Peta Lokasi Poh Gading Waterfall"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       FOOTER
+  ============================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <span class="logo-leaf">🌿</span>
+          <span class="logo-text">Poh <strong>Gading</strong></span>
+        </a>
+        <p>Destinasi wisata alam tersembunyi di jantung Bali yang menawarkan keindahan air terjun alami yang tiada duanya.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.3 6.3 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.74a4.85 4.85 0 0 1-1.01-.05z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#gallery">Galeri</a></li>
+          <li><a href="#about">Tentang Kami</a></li>
+          <li><a href="#pricing">Harga Tiket</a></li>
+          <li><a href="#reservation">Reservasi</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="#">Kebijakan Privasi</a></li>
+          <li><a href="#">Syarat & Ketentuan</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Blog Wisata</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-newsletter">
+        <h4>Newsletter</h4>
+        <p>Dapatkan info promo terbaru langsung di inbox Anda.</p>
+        <div class="newsletter-input">
+          <input type="email" placeholder="Alamat email Anda" />
+          <button type="button">→</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Poh Gading Waterfall. All rights reserved. Made with 💚 for Bali.</p>
+    </div>
+  </footer>
+
+  <!-- ==============================
+       SUCCESS MODAL
+  ============================== -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-card">
+      <div class="modal-icon">✅</div>
+      <h3>Reservasi Berhasil!</h3>
+      <p id="modalMessage">Terima kasih! Konfirmasi pemesanan akan dikirim ke email Anda dalam 5–10 menit.</p>
+      <div class="modal-detail" id="modalDetail"></div>
+      <button class="btn-primary" onclick="closeModal()">Tutup</button>
+    </div>
+  </div>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
