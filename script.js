@@ -77,7 +77,8 @@ function scrollToReservation() {
 //    Clicking "Pilih Paket Ini" selects the radio & scrolls
 // ============================================================
 function selectPackage(pkg) {
-  const radio = document.getElementById(pkg === 'VIP' ? 'pkgVIP' : 'pkgRegular');
+  const pkgIds = { Regular: 'pkgRegular', Domestik: 'pkgDomestik', VIP: 'pkgVIP' };
+  const radio = document.getElementById(pkgIds[pkg]);
   if (radio) {
     radio.checked = true;
     // Trigger the change event so price updates
@@ -91,7 +92,7 @@ function selectPackage(pkg) {
 // 5. PRICE CALCULATOR
 //    Updates total when tickets or package changes
 // ============================================================
-const PRICES = { Regular: 25000, VIP: 75000 };
+const PRICES = { Regular: 20000, Domestik: 25000, VIP: 30000 };
 
 const ticketsInput  = document.getElementById('tickets');
 const summaryDiv    = document.getElementById('priceSummary');
@@ -235,35 +236,10 @@ form.addEventListener('submit', (e) => {
 
   if (!validateForm()) return;
 
-  // Collect form values for the confirmation modal
-  const name      = document.getElementById('fullName').value.trim();
-  const email     = document.getElementById('email').value.trim();
-  const visitDate = document.getElementById('visitDate').value;
-  const tickets   = parseInt(document.getElementById('tickets').value, 10);
-  const pkg       = document.querySelector('input[name="package"]:checked').value;
-  const total     = PRICES[pkg] * tickets;
-
-  // Format date nicely
-  const dateFormatted = new Date(visitDate + 'T00:00:00').toLocaleDateString('id-ID', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-  });
-
-  // Populate modal detail
-  document.getElementById('modalDetail').innerHTML =
-    `<b>📋 Detail Reservasi</b><br>
-    Nama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ${name}<br>
-    Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ${email}<br>
-    Tanggal Kunjungan: ${dateFormatted}<br>
-    Paket&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ${pkg}<br>
-    Jumlah Tiket&nbsp;&nbsp;: ${tickets} tiket<br>
-    Total Bayar&nbsp;&nbsp;&nbsp;: <strong>${formatRupiah(total)}</strong>`;
-
-  // Show modal
-  openModal();
-
-  // Reset form
-  form.reset();
-  updatePrice();
+  // Show payment modal instead of success modal
+  openPaymentModal();
+  
+  // Don't reset form yet (so payment modal can still read values)
 });
 
 // Clear error on input change
@@ -469,3 +445,152 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
   sections.forEach(s => obs.observe(s));
 })();
+
+
+// ============================================================
+// 13. PAYMENT MODAL — QR Code Generation & Payment Flow
+// ============================================================
+
+const paymentModal = document.getElementById('paymentModal');
+let currentBookingData = {};
+
+/**
+ * Generate a unique booking code
+ * @returns {string} Booking code (POH-XXXXXX)
+ */
+function generateBookingCode() {
+  const randomNum = String(Math.floor(Math.random() * 1000000)).padStart(6, '0');
+  return `POH-${randomNum}`;
+}
+
+/**
+ * Open payment modal and generate QR code
+ */
+function openPaymentModal() {
+  // Get form data
+  const name = document.getElementById('fullName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const visitDate = document.getElementById('visitDate').value;
+  const tickets = parseInt(document.getElementById('tickets').value, 10);
+  const pkg = document.querySelector('input[name="package"]:checked').value;
+  const total = PRICES[pkg] * tickets;
+
+  // Format date
+  const dateFormatted = new Date(visitDate + 'T00:00:00').toLocaleDateString('id-ID', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+
+  // Store data for later use
+  currentBookingData = {
+    name, email, pkg, visitDate: dateFormatted, tickets, total
+  };
+
+  // Update modal content
+  document.getElementById('paymentName').textContent = name;
+  document.getElementById('paymentPackage').textContent = pkg;
+  document.getElementById('paymentTickets').textContent = `${tickets} orang`;
+  document.getElementById('paymentDate').textContent = dateFormatted;
+  document.getElementById('paymentTotal').textContent = formatRupiah(total);
+
+  // Generate booking code
+  const bookingCode = generateBookingCode();
+  document.getElementById('bookingCode').textContent = bookingCode;
+
+  // Clear previous QR code
+  const qrContainer = document.getElementById('qrCodeContainer');
+  qrContainer.innerHTML = '';
+
+  // Generate QR code with payment data
+  // QR code contains: booking code + total amount + customer info
+  const qrData = `POH_GADING|${bookingCode}|${total}|${email}|${phone}`;
+  
+  // Create QR code using QRcode.js library
+  try {
+    if (typeof QRCode !== 'undefined') {
+      new QRCode(qrContainer, {
+        text: qrData,
+        width: 200,
+        height: 200,
+        colorDark: '#1b4d1e',
+        colorLight: '#f1f8f1',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    } else {
+      qrContainer.innerHTML = '<div style="padding: 40px; text-align: center; background: #f1f8f1; border-radius: 8px;"><p>📱 Scan untuk membayar</p></div>';
+      console.warn('QRCode library not available');
+    }
+  } catch (err) {
+    console.error('Error generating QR code:', err);
+    qrContainer.innerHTML = '<div style="padding: 40px; text-align: center; background: #f1f8f1; border-radius: 8px;"><p>📱 Scan untuk membayar</p></div>';
+  }
+
+  // Show payment modal
+  if (paymentModal) {
+    paymentModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  } else {
+    console.error('Payment modal element not found');
+  }
+}
+
+/**
+ * Close payment modal
+ */
+function closePaymentModal() {
+  if (paymentModal) {
+    paymentModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+/**
+ * Confirm payment and close payment modal
+ */
+function confirmPayment() {
+  const bookingCode = document.getElementById('bookingCode').textContent;
+  const { name, email, total } = currentBookingData;
+
+  // Simulate payment confirmation
+  const confirmMsg = `✅ Pembayaran Dikonfirmasi!\n\n` +
+    `Kode Booking: ${bookingCode}\n` +
+    `Nama: ${name}\n` +
+    `Email: ${email}\n` +
+    `Total: ${formatRupiah(total)}\n\n` +
+    `Tiket akan dikirim ke email Anda dalam 10 menit.`;
+
+  // Show success message
+  alert(confirmMsg);
+
+  // Close payment modal
+  closePaymentModal();
+
+  // Show success modal
+  const detailText = `<b style="color: var(--green-800);">✅ Pembayaran Confirmed!</b><br><br>` +
+    `<b>Kode Booking:</b> ${bookingCode}<br>` +
+    `<b>Nama Pemesan:</b> ${currentBookingData.name}<br>` +
+    `<b>Total Pembayaran:</b> ${formatRupiah(currentBookingData.total)}<br>` +
+    `<b>Tanggal Kunjungan:</b> ${currentBookingData.visitDate}<br><br>` +
+    `📧 Konfirmasi akan dikirim ke email: ${currentBookingData.email}<br>` +
+    `🎫 Tiket digital tersedia di email Anda`;
+
+  document.getElementById('modalMessage').innerHTML =
+    `Pembayaran Anda telah berhasil diproses! Terima kasih telah memesan tiket Poh Gading Waterfall.`;
+  document.getElementById('modalDetail').innerHTML = detailText;
+
+  openModal();
+}
+
+// Close payment modal when clicking on overlay
+if (paymentModal) {
+  paymentModal.addEventListener('click', (e) => {
+    if (e.target === paymentModal) closePaymentModal();
+  });
+}
+
+// Close payment modal with Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && paymentModal && paymentModal.classList.contains('active')) {
+    closePaymentModal();
+  }
+});
