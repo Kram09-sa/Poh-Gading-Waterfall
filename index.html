@@ -9,6 +9,8 @@
   <!-- Playfair Display for headings, DM Sans for body -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <!-- QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -66,7 +68,7 @@
       <!-- Quick stats -->
       <div class="hero-stats">
         <div class="stat">
-          <span class="stat-num">4.9</span>
+          <span class="stat-num">4.4</span>
           <span class="stat-label">★ Rating</span>
         </div>
         <div class="stat-divider"></div>
@@ -143,10 +145,10 @@
       <div class="about-image-wrap reveal">
         <img src="foto/WhatsApp Image 2026-04-17 at 14.03.45 (2).jpeg" alt="Poh Gading Waterfall view" class="about-img" />
         <div class="about-badge-card">
-          <span class="badge-icon">🏅</span>
+          <span class="badge-icon"></span>
           <div>
-            <strong>Best Waterfall 2026</strong>
-            <p>Bali Tourism Award</p>
+            <strong> Best Waterfall 2026 </strong>
+            
           </div>
         </div>
       </div>
@@ -210,7 +212,7 @@
       <div class="price-card reveal">
         <div class="price-card-header">
           <span class="price-icon">🌿</span>
-          <h3>Regular</h3>
+          <h3>Lokal</h3>
           <p>Nikmati keindahan alam</p>
         </div>
         <div class="price-amount">
@@ -228,6 +230,28 @@
         </ul>
         <button class="price-btn" onclick="selectPackage('Regular')">Pilih Paket Ini</button>
       </div>
+      <!-- Domestik -->
+      <div class="price-card domestik-card reveal" style="--delay: 0.1s">
+        <div class="price-card-header">
+          <span class="price-icon">🌴</span>
+          <h3>Domestik</h3>
+          <p>Pengalaman menarik</p>
+        </div>
+        <div class="price-amount">
+          <span class="currency">Rp</span>
+          <span class="amount">25.000</span>
+          <span class="per">/orang</span>
+        </div>
+        <ul class="price-features">
+          <li>✓ Akses area utama air terjun</li>
+          <li>✓ Pemandu lokal</li>
+          <li>✓ Parkir gratis</li>
+          <li>✓ Toilet & fasilitas dasar</li>
+          <li>✓ Foto profesional</li>
+          <li class="disabled">✓ Sewa perlengkapan</li>
+        </ul>
+        <button class="price-btn" onclick="selectPackage('Domestik')">Pilih Paket Ini</button>
+      </div>
       <!-- VIP -->
       <div class="price-card featured-card reveal" style="--delay: 0.15s">
         <div class="popular-badge">⭐ Terpopuler</div>
@@ -243,7 +267,7 @@
         </div>
         <ul class="price-features">
           <li>✓ Semua fitur Regular</li>
-          <li>✓ Foto profesional (10 foto)</li>
+          <li>✓ Foto profesional</li>
           <li>✓ Sewa perlengkapan air</li>
           <li>✓ Pemandu eksklusif</li>
           <li>✓ Akses area VIP</li>
@@ -282,7 +306,7 @@
             <span>📞</span>
             <div>
               <strong>Hotline</strong>
-              <p>+62 812-3456-7890</p>
+              <p>+62 877 5106 1534</p>
             </div>
           </div>
         </div>
@@ -326,8 +350,15 @@
               <label class="pkg-option">
                 <input type="radio" name="package" value="Regular" id="pkgRegular" />
                 <span class="pkg-label">
-                  <span class="pkg-name">🌿 Regular</span>
+                  <span class="pkg-name">🌿Lokal</span>
                   <span class="pkg-price">Rp 20.000/orang</span>
+                </span>
+              </label>
+              <label class="pkg-option">
+                <input type="radio" name="package" value="Domestik" id="pkgDomestik" />
+                <span class="pkg-label">
+                  <span class="pkg-name">🌿Domestik</span>
+                  <span class="pkg-price">Rp 25.000/orang</span>
                 </span>
               </label>
               <label class="pkg-option">
@@ -380,7 +411,7 @@
       </div>
       <div class="testi-card highlight reveal" style="--delay:0.1s">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Tempat yang luar biasa! Airnya jernih banget dan hawanya sejuk. Paket VIP-nya worth it banget, fotografernya profesional!"</p>
+        <p class="testi-text">"Tempat yang luar biasa! Airnya jernih banget dan hawanya sejuk. fotografernya profesional!"</p>
         <div class="testi-author">
           <div class="testi-avatar">RH</div>
           <div>
@@ -526,6 +557,86 @@
       <p id="modalMessage">Terima kasih! Konfirmasi pemesanan akan dikirim ke email Anda dalam 5–10 menit.</p>
       <div class="modal-detail" id="modalDetail"></div>
       <button class="btn-primary" onclick="closeModal()">Tutup</button>
+    </div>
+  </div>
+
+  <!-- ==============================
+       PAYMENT QR CODE MODAL
+  ============================== -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="payment-modal-card">
+      <button class="modal-close" onclick="closePaymentModal()">×</button>
+      
+      <div class="payment-header">
+        <div class="payment-icon">💳</div>
+        <h2>Pembayaran Tiket</h2>
+      </div>
+
+      <div class="payment-content">
+        <!-- Payment Info -->
+        <div class="payment-info">
+          <div class="info-row">
+            <span class="info-label">Nama Pemesan:</span>
+            <span class="info-value" id="paymentName">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Paket Tiket:</span>
+            <span class="info-value" id="paymentPackage">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Jumlah Tiket:</span>
+            <span class="info-value" id="paymentTickets">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Tanggal Kunjungan:</span>
+            <span class="info-value" id="paymentDate">-</span>
+          </div>
+          <div class="info-row highlight">
+            <span class="info-label">Total Pembayaran:</span>
+            <span class="info-value" id="paymentTotal">Rp 0</span>
+          </div>
+        </div>
+
+        <!-- QR Code Section -->
+        <div class="qr-section">
+          <p class="qr-instruction">Scan QR Code di bawah dengan aplikasi pembayaran favorit Anda:</p>
+          <div class="qr-code-container" id="qrCodeContainer"></div>
+          <p class="qr-notice">Pembayaran otomatis akan diverifikasi dalam beberapa menit</p>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="payment-details">
+          <h4>Cara Pembayaran:</h4>
+          <div class="payment-method">
+            <div class="method-item">
+              <span class="method-icon">📱</span>
+              <div>
+                <strong>Dana / GCash / E-Wallet</strong>
+                <p>Scan QR code untuk pembayaran instant</p>
+              </div>
+            </div>
+            <div class="method-item">
+              <span class="method-icon">🏦</span>
+              <div>
+                <strong>Transfer Bank</strong>
+                <p>BCA: 1234567890 a.n Poh Gading</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Booking Code -->
+        <div class="booking-code-section">
+          <p class="code-label">Kode Booking Anda:</p>
+          <div class="booking-code" id="bookingCode">POH-000000</div>
+          <p class="code-note">Simpan kode ini untuk konfirmasi di lokasi</p>
+        </div>
+      </div>
+
+      <div class="payment-footer">
+        <button class="btn-primary" onclick="confirmPayment()">Sudah Membayar</button>
+        <button class="btn-ghost" onclick="closePaymentModal()">Ubah Data</button>
+      </div>
     </div>
   </div>
 
